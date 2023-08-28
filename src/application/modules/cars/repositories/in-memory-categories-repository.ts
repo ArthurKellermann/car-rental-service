@@ -5,10 +5,20 @@ import { ICreateCategoryDTO } from './categories-repository';
 export class InMemoryCategoriesRepository implements CategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  private static INSTANCE: InMemoryCategoriesRepository;
+
+  private constructor() {
     this.categories = [];
   }
 
+  public static getInstance(): InMemoryCategoriesRepository {
+    if (!InMemoryCategoriesRepository.INSTANCE) {
+      InMemoryCategoriesRepository.INSTANCE =
+        new InMemoryCategoriesRepository();
+    }
+
+    return InMemoryCategoriesRepository.INSTANCE;
+  }
   create({ name, description }: ICreateCategoryDTO): void {
     const category: Category = new Category();
 

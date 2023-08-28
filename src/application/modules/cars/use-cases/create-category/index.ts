@@ -2,7 +2,7 @@ import { InMemoryCategoriesRepository } from '../../repositories/in-memory-categ
 import { CreateCategoryController } from './create-category-controller';
 import { CreateCategoryUseCase } from './create-category-use-case';
 
-const categoriesRepository = new InMemoryCategoriesRepository();
+const categoriesRepository = InMemoryCategoriesRepository.getInstance();
 
 const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
 
