@@ -1,9 +1,12 @@
 import { v4 as randomUUID } from 'uuid';
 
-export class Category {
+export class Specification {
   id?: string;
+
   name: string;
+
   description: string;
+
   created_at: Date;
 
   constructor() {
