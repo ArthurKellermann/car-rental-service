@@ -1,24 +1,25 @@
 import { Router } from 'express';
-import { v4 as randomUUID } from 'uuid';
-import { Category } from '../../model/category';
+import { CreateCategoryService } from '../services/create-category-service';
+import { InMemoryCategoriesRepository } from '../repositories/in-memory-categories-repository';
 
 const categoriesRoutes = Router();
 
-const categories: Category[] = [];
+const categoriesRepository = new InMemoryCategoriesRepository();
 
 categoriesRoutes.post('/', (req, res) => {
   const { name, description } = req.body;
 
-  const category: Category = {
-    id: randomUUID(),
-    name,
-    description,
-    created_at: new Date(),
-  };
+  const createCategoryService = new CreateCategoryService(categoriesRepository);
 
-  categories.push(category);
+  createCategoryService.execute({ name, description });
 
-  return res.status(201).json({ categories: categories[0] });
+  return res.status(201).send();
+});
+
+categoriesRoutes.get('/', (req, res) => {
+  const categoriesList = categoriesRepository.list();
+
+  return res.status(200).json({ categoriesList });
 });
 
 export { categoriesRoutes };
