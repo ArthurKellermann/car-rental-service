@@ -2,7 +2,7 @@ import { Specification } from '../entities/specification';
 import {
   CreateSpecificationDTO,
   SpecificationRepository,
-} from './specifications-repository';
+} from './implementations/specifications-repository';
 
 export class InMemorySpecificationsRepository
   implements SpecificationRepository

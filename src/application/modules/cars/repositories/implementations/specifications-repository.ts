@@ -1,4 +1,4 @@
-import { Specification } from '../entities/specification';
+import { Specification } from '../../entities/specification';
 
 export interface CreateSpecificationDTO {
   name: string;

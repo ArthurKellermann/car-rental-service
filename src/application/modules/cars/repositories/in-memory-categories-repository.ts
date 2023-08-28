@@ -1,6 +1,6 @@
 import { Category } from '../entities/category';
-import { CategoriesRepository } from './categories-repository';
-import { ICreateCategoryDTO } from './categories-repository';
+import { CategoriesRepository } from './implementations/categories-repository';
+import { ICreateCategoryDTO } from './implementations/categories-repository';
 
 export class InMemoryCategoriesRepository implements CategoriesRepository {
   private categories: Category[];
