@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -9,7 +10,7 @@ datasource db {
 
 model Category {
   id          String   @id @default(uuid())
-  name        String
+  name        String   @unique
   description String
   created_at  DateTime @default(now())
 
