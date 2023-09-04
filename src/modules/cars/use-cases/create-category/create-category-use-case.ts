@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { CategoriesRepository } from '../../repositories/implementations/categories-repository';
 
 interface CreateCategoryUseCaseRequest {
@@ -5,8 +6,12 @@ interface CreateCategoryUseCaseRequest {
   description: string;
 }
 
+@injectable()
 export class CreateCategoryUseCase {
-  constructor(private categoriesRepository: CategoriesRepository) {}
+  constructor(
+    @inject('PrismaCategoriesRepository')
+    private categoriesRepository: CategoriesRepository,
+  ) {}
 
   async execute({
     name,

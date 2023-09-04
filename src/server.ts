@@ -2,6 +2,7 @@ import express from 'express';
 import router from './routes/index';
 import swaggerUi from 'swagger-ui-express';
 import './database/prisma-categories-repository';
+import './shared/container';
 import swaggerFile from './swagger.json';
 import './database/prisma-categories-repository';
 
