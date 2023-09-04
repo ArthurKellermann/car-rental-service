@@ -8,9 +8,9 @@ interface CreateSpecificationUseCaseRequest {
 export class CreateSpecificationUseCase {
   constructor(private specificationsRepository: SpecificationRepository) {}
 
-  execute({ name, description }: CreateSpecificationUseCaseRequest) {
+  async execute({ name, description }: CreateSpecificationUseCaseRequest) {
     const specificationAlreadyExists =
-      this.specificationsRepository.findByName(name);
+      await this.specificationsRepository.findByName(name);
 
     if (specificationAlreadyExists) {
       throw new Error('Speficiation already exists');

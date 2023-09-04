@@ -1,6 +1,6 @@
 import { Category } from '../entities/category';
 import { CategoriesRepository } from './implementations/categories-repository';
-import { ICreateCategoryDTO } from './implementations/categories-repository';
+import { CreateCategoryDTO } from './implementations/dtos/create-category-dto';
 
 export class InMemoryCategoriesRepository implements CategoriesRepository {
   private categories: Category[];
@@ -19,7 +19,7 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
 
     return InMemoryCategoriesRepository.INSTANCE;
   }
-  create({ name, description }: ICreateCategoryDTO): void {
+  async create({ name, description }: CreateCategoryDTO): Promise<void> {
     const category: Category = new Category();
 
     Object.assign(category, {
@@ -31,11 +31,11 @@ export class InMemoryCategoriesRepository implements CategoriesRepository {
     this.categories.push(category);
   }
 
-  list(): Category[] {
+  async list(): Promise<Category[]> {
     return this.categories;
   }
 
-  findByName(name: string): Category {
+  async findByName(name: string): Promise<Category> {
     const category = this.categories.find((category) => category.name === name);
     return category;
   }

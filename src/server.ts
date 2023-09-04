@@ -3,6 +3,7 @@ import router from './routes/index';
 import swaggerUi from 'swagger-ui-express';
 import './database/prisma-categories-repository';
 import swaggerFile from './swagger.json';
+import './database/prisma-categories-repository';
 
 const app = express();
 const port = 3333;
