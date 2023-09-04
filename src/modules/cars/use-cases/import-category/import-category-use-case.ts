@@ -1,14 +1,19 @@
 import fs from 'fs';
 import csvParse from 'csv-parse';
 import { CategoriesRepository } from '../../repositories/implementations/categories-repository';
+import { inject, injectable } from 'tsyringe';
 
 interface ImportCategoryBody {
   name: string;
   description: string;
 }
 
+@injectable()
 export class ImportCategoryUseCase {
-  constructor(private categoriesRepository: CategoriesRepository) {}
+  constructor(
+    @inject('PrismaCategoriesRepository')
+    private categoriesRepository: CategoriesRepository,
+  ) {}
 
   loadCategories(file: Express.Multer.File): Promise<ImportCategoryBody[]> {
     return new Promise((resolve, reject) => {
@@ -40,13 +45,13 @@ export class ImportCategoryUseCase {
   async execute(file: Express.Multer.File): Promise<void> {
     const categories = await this.loadCategories(file);
 
-    categories.map((category) => {
+    categories.map(async (category) => {
       const { name, description } = category;
 
-      const existCategory = this.categoriesRepository.findByName(name);
+      const existCategory = await this.categoriesRepository.findByName(name);
 
       if (!existCategory) {
-        this.categoriesRepository.create({
+        await this.categoriesRepository.create({
           name,
           description,
         });

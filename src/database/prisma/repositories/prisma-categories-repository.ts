@@ -1,20 +1,12 @@
 import { PrismaClient } from '@prisma/client';
-import { Category } from '../modules/cars/entities/category';
-import { CategoriesRepository } from '../modules/cars/repositories/implementations/categories-repository';
-import { CreateCategoryDTO } from '../modules/cars/repositories/implementations/dtos/create-category-dto';
+import { Category } from '../../../modules/cars/entities/category';
+import { CategoriesRepository } from '../../../modules/cars/repositories/implementations/categories-repository';
+import { CreateCategoryDTO } from '../../../modules/cars/repositories/implementations/dtos/create-category-dto';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class PrismaCategoriesRepository implements CategoriesRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient({
-      datasources: {
-        db: {
-          url: process.env.DATABASE_URL,
-        },
-      },
-    });
-  }
+  constructor(@inject('PrismaClient') private prisma: PrismaClient) {}
 
   async create({ name, description }: CreateCategoryDTO): Promise<void> {
     await this.prisma.category.create({

@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { SpecificationRepository } from '../../repositories/implementations/specifications-repository';
 
 interface CreateSpecificationUseCaseRequest {
@@ -5,8 +6,12 @@ interface CreateSpecificationUseCaseRequest {
   description: string;
 }
 
+@injectable()
 export class CreateSpecificationUseCase {
-  constructor(private specificationsRepository: SpecificationRepository) {}
+  constructor(
+    @inject('PrismaSpecificationsRepository')
+    private specificationsRepository: SpecificationRepository,
+  ) {}
 
   async execute({ name, description }: CreateSpecificationUseCaseRequest) {
     const specificationAlreadyExists =

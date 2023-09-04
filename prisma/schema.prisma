@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -15,4 +15,13 @@ model Category {
   created_at  DateTime @default(now())
 
   @@map("categories")
+}
+
+model Specification {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String
+  created_at  DateTime @default(now())
+
+  @@map("specifications")
 }

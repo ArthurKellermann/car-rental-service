@@ -1,8 +1,6 @@
 import { Specification } from '../entities/specification';
-import {
-  CreateSpecificationDTO,
-  SpecificationRepository,
-} from './implementations/specifications-repository';
+import { SpecificationRepository } from './implementations/specifications-repository';
+import { CreateSpecificationDTO } from './implementations/dtos/create-specification-dto';
 
 export class InMemorySpecificationsRepository
   implements SpecificationRepository
@@ -12,7 +10,7 @@ export class InMemorySpecificationsRepository
   constructor() {
     this.specifications = [];
   }
-  create({ name, description }: CreateSpecificationDTO): void {
+  async create({ name, description }: CreateSpecificationDTO): Promise<void> {
     const specification = new Specification();
 
     Object.assign(specification, {
@@ -21,11 +19,11 @@ export class InMemorySpecificationsRepository
       created_at: new Date(),
     });
 
-    this.specifications.push(specification);
+    await this.specifications.push(specification);
   }
 
-  findByName(name: string): Specification {
-    const specification = this.specifications.find(
+  async findByName(name: string): Promise<Specification> {
+    const specification = await this.specifications.find(
       (specification) => specification.name === name,
     );
 
