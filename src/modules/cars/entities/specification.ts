@@ -1,10 +1,13 @@
 import { v4 as randomUUID } from 'uuid';
+import { IsNotEmpty } from 'class-validator';
 
 export class Specification {
   id?: string;
 
+  @IsNotEmpty()
   name: string;
 
+  @IsNotEmpty()
   description: string;
 
   created_at: Date;
