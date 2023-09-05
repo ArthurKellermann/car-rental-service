@@ -19,7 +19,7 @@ export class User {
 
   driver_license: string;
 
-  idAdmin: boolean;
+  isAdmin: boolean;
 
   created_at: Date;
 
