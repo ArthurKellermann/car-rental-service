@@ -36,4 +36,14 @@ export class PrismaUsersRepository implements UserRepository {
 
     return user;
   }
+
+  async findById(id: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  }
 }
