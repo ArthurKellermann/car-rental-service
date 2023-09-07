@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { UserRepository } from '../../repositories/implementations/user-repository';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import { AppError } from '../../../../errors/app-error';
 
 interface AuthenticateUserRequest {
   email: string;
@@ -28,13 +29,19 @@ export class AuthenticateUserUseCase {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('Email or password incorret');
+      throw new AppError({
+        statusCode: 400,
+        message: 'Email or password incorret',
+      });
     }
 
     const passwordMatch = compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error('Email or password incorret');
+      throw new AppError({
+        statusCode: 400,
+        message: 'Email or password incorret',
+      });
     }
 
     const token = sign({}, '9b913e7f1f9e37ddaae984018e3dfc54', {

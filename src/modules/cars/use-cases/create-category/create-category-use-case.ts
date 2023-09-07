@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { CategoriesRepository } from '../../repositories/implementations/categories-repository';
+import { AppError } from '../../../../errors/app-error';
 
 interface CreateCategoryUseCaseRequest {
   name: string;
@@ -17,12 +18,14 @@ export class CreateCategoryUseCase {
     name,
     description,
   }: CreateCategoryUseCaseRequest): Promise<void> {
-    const categoryAlreadyExists = await this.categoriesRepository.findByName(
-      name,
-    );
+    const categoryAlreadyExists =
+      await this.categoriesRepository.findByName(name);
 
     if (categoryAlreadyExists) {
-      throw new Error('Category already exists');
+      throw new AppError({
+        statusCode: 400,
+        message: 'Category already exists',
+      });
     }
 
     this.categoriesRepository.create({ name, description });

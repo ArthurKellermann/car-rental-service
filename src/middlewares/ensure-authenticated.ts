@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { prismaUsersRepository } from '../database';
+import { AppError } from '../errors/app-error';
 
 interface Payload {
   sub: string;
 }
-export function ensureAuthenticated(
+export async function ensureAuthenticated(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -13,7 +14,10 @@ export function ensureAuthenticated(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('Token missing');
+    throw new AppError({
+      statusCode: 401,
+      message: 'Token missing',
+    });
   }
 
   const [, token] = authHeader.split(' ');
@@ -24,14 +28,20 @@ export function ensureAuthenticated(
       '9b913e7f1f9e37ddaae984018e3dfc54',
     ) as Payload;
 
-    const user = prismaUsersRepository.findById(user_id);
+    const user = await prismaUsersRepository.findById(user_id);
 
     if (!user) {
-      throw new Error('User does not exists');
+      throw new AppError({
+        statusCode: 401,
+        message: 'User does not exists',
+      });
     }
 
     next();
   } catch {
-    throw new Error('Invalid token');
+    throw new AppError({
+      statusCode: 401,
+      message: 'Invalid token',
+    });
   }
 }
