@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { UdpateUserAvatarUseCase } from './update-user-avatar';
+import { UdpateUserAvatarUseCase } from './update-user-avatar-use-case';
 
 export class UdpateUserAvatarController {
   async handle(req: Request, res: Response): Promise<Response> {
