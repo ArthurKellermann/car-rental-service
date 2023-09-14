@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_LOCAL")
 }
 
 model Category {
@@ -34,6 +34,7 @@ model User {
   email          String   @unique
   driver_license String
   isAdmin        Boolean  @default(false)
+  avatar         String?
   created_at     DateTime @default(now())
 
   @@map("users")

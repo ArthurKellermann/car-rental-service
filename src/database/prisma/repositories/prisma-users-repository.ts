@@ -13,6 +13,8 @@ export class PrismaUsersRepository implements UserRepository {
     email,
     password,
     driver_license,
+    avatar,
+    id,
   }: CreateUserDTO): Promise<void> {
     await this.prisma.user.create({
       data: {
@@ -20,11 +22,11 @@ export class PrismaUsersRepository implements UserRepository {
         username,
         email,
         password,
+        avatar,
+        id,
         driver_license,
       },
     });
-
-    return;
   }
 
   async findByEmail(email: string): Promise<User> {

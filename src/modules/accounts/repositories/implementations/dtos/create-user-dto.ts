@@ -3,5 +3,7 @@ export interface CreateUserDTO {
   username: string;
   password: string;
   email: string;
+  id?: string;
+  avatar?: string;
   driver_license: string;
 }

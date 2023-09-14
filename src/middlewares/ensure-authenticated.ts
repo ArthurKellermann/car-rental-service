@@ -37,6 +37,10 @@ export async function ensureAuthenticated(
       });
     }
 
+    req.user = {
+      id: user_id,
+    };
+
     next();
   } catch {
     throw new AppError({
