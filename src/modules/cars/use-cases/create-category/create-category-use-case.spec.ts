@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Category } from '../../entities/category';
 import { InMemoryCategoriesRepository } from '../../repositories/in-memory/in-memory-categories-repository';
 import { CreateCategoryUseCase } from './create-category-use-case';
-import { AppError } from '../../../../errors/app-error';
+import { AppError } from '../../../../shared/infra/errors/app-error';
 
 let createCategory: CreateCategoryUseCase;
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;

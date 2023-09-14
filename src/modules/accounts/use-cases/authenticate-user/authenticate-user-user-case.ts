@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { UserRepository } from '../../repositories/implementations/user-repository';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { AppError } from '../../../../errors/app-error';
+import { AppError } from '../../../../shared/infra/errors/app-error';
 
 interface AuthenticateUserRequest {
   email: string;
