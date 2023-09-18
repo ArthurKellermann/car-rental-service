@@ -27,6 +27,8 @@ export class Car {
   constructor() {
     if (!this.id) {
       this.id = randomUUID();
+      this.available = true;
+      this.created_at = new Date();
     }
   }
 }

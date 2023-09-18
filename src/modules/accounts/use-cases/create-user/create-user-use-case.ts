@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { UserRepository } from '../../repositories/implementations/user-repository';
-import { CreateUserDTO } from '../../repositories/implementations/dtos/create-user-dto';
+import { UserRepository } from '../../repositories/user-repository';
+import { CreateUserDTO } from '../../repositories/dtos/create-user-dto';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 import { hash } from 'bcryptjs';
 

@@ -1,5 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { CarsRepository } from '../../repositories/cars-repository';
+import { AppError } from '../../../../shared/infra/errors/app-error';
+import { Car } from '../../entities/car';
 
 interface CreateCarUseCaseRequest {
   name: string;
@@ -26,8 +28,18 @@ export class CreateCarUseCase {
     description,
     fine_amount,
     license_plate,
-  }: CreateCarUseCaseRequest): Promise<void> {
-    await this.carsRepository.create({
+  }: CreateCarUseCaseRequest): Promise<Car> {
+    const carAlreadyExists =
+      await this.carsRepository.findByLicensePlate(license_plate);
+
+    if (carAlreadyExists) {
+      throw new AppError({
+        statusCode: 400,
+        message: 'Car already exists',
+      });
+    }
+
+    const car = await this.carsRepository.create({
       name,
       brand,
       category_id,
@@ -37,6 +49,6 @@ export class CreateCarUseCase {
       license_plate,
     });
 
-    return;
+    return car;
   }
 }

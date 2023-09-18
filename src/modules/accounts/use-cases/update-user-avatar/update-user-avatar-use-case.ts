@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 import { deleteFile } from '../../../../utils/file';
-import { UserRepository } from '../../repositories/implementations/user-repository';
+import { UserRepository } from '../../repositories/user-repository';
 
 interface UdpateUserAvatarUseCaseRequest {
   user_id: string;

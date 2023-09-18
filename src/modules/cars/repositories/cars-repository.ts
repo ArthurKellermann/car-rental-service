@@ -1,3 +1,4 @@
+import { Car } from '../entities/car';
 import { CreateCarDto } from './dtos/create-car-dto';
 
 export interface CarsRepository {
@@ -9,5 +10,7 @@ export interface CarsRepository {
     description,
     fine_amount,
     license_plate,
-  }: CreateCarDto): Promise<void>;
+  }: CreateCarDto): Promise<Car>;
+
+  findByLicensePlate(license_plate: string): Promise<Car>;
 }

@@ -8,6 +8,7 @@ export class InMemoryCarsRepository implements CarsRepository {
   constructor() {
     this.cars = [];
   }
+
   async create({
     name,
     brand,
@@ -16,7 +17,7 @@ export class InMemoryCarsRepository implements CarsRepository {
     description,
     fine_amount,
     license_plate,
-  }: CreateCarDto): Promise<void> {
+  }: CreateCarDto): Promise<Car> {
     const car: Car = new Car();
 
     Object.assign(car, {
@@ -32,6 +33,14 @@ export class InMemoryCarsRepository implements CarsRepository {
 
     await this.cars.push(car);
 
-    return;
+    return car;
+  }
+
+  async findByLicensePlate(license_plate: string): Promise<Car> {
+    const car = await this.cars.find(
+      (car) => car.license_plate === license_plate,
+    );
+
+    return car;
   }
 }
