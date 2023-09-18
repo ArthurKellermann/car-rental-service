@@ -1,6 +1,6 @@
 import fs from 'fs';
 import csvParse from 'csv-parse';
-import { CategoriesRepository } from '../../repositories/implementations/categories-repository';
+import { CategoriesRepository } from '../../repositories/categories-repository';
 import { inject, injectable } from 'tsyringe';
 
 interface ImportCategoryBody {

@@ -13,6 +13,7 @@ model Category {
   name        String   @unique
   description String
   created_at  DateTime @default(now())
+  Car         Car[]
 
   @@map("categories")
 }
@@ -38,4 +39,20 @@ model User {
   created_at     DateTime @default(now())
 
   @@map("users")
+}
+
+model Car {
+  id            String   @id @default(uuid())
+  name          String
+  description   String
+  daily_rate    Float
+  available     Boolean  @default(true)
+  license_plate String
+  fine_amount   Float
+  brand         String
+  category_id   String?
+  category      Category? @relation(fields: [category_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  created_at    DateTime @default(now())
+
+  @@map("cars")
 }

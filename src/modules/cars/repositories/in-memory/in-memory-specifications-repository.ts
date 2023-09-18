@@ -1,9 +1,9 @@
-import { Specification } from '../entities/specification';
-import { SpecificationRepository } from './implementations/specifications-repository';
-import { CreateSpecificationDTO } from './implementations/dtos/create-specification-dto';
+import { Specification } from '../../entities/specification';
+import { SpecificationsRepository } from '../specifications-repository';
+import { CreateSpecificationDTO } from '../dtos/create-specification-dto';
 
 export class InMemorySpecificationsRepository
-  implements SpecificationRepository
+  implements SpecificationsRepository
 {
   private specifications: Specification[];
 

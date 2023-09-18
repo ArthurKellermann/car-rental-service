@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { SpecificationRepository } from '../../repositories/implementations/specifications-repository';
+import { SpecificationsRepository } from '../../repositories/specifications-repository';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 
 interface CreateSpecificationUseCaseRequest {
@@ -11,7 +11,7 @@ interface CreateSpecificationUseCaseRequest {
 export class CreateSpecificationUseCase {
   constructor(
     @inject('PrismaSpecificationsRepository')
-    private specificationsRepository: SpecificationRepository,
+    private specificationsRepository: SpecificationsRepository,
   ) {}
 
   async execute({ name, description }: CreateSpecificationUseCaseRequest) {

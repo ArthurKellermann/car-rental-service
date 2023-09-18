@@ -1,5 +1,5 @@
 import { Category } from '../../entities/category';
-import { CategoriesRepository } from '../../repositories/implementations/categories-repository';
+import { CategoriesRepository } from '../../repositories/categories-repository';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()

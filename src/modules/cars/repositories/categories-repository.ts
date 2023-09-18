@@ -1,4 +1,4 @@
-import { Category } from '../../entities/category';
+import { Category } from '../entities/category';
 import { CreateCategoryDTO } from './dtos/create-category-dto';
 
 export interface CategoriesRepository {

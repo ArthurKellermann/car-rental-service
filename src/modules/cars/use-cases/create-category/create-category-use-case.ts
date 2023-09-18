@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { CategoriesRepository } from '../../repositories/implementations/categories-repository';
+import { CategoriesRepository } from '../../repositories/categories-repository';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 
 interface CreateCategoryUseCaseRequest {
