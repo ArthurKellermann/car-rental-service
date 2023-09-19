@@ -16,7 +16,7 @@ interface CreateCarUseCaseRequest {
 @injectable()
 export class CreateCarUseCase {
   constructor(
-    @inject('PrismaCategoriesRepository')
+    @inject('PrismaCarsRepository')
     private carsRepository: CarsRepository,
   ) {}
 
@@ -34,7 +34,6 @@ export class CreateCarUseCase {
 
     if (carAlreadyExists) {
       throw new AppError({
-        statusCode: 400,
         message: 'Car already exists',
       });
     }

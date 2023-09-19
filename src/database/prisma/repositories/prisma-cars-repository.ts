@@ -3,7 +3,6 @@ import { CarsRepository } from '../../../modules/cars/repositories/cars-reposito
 import { Car } from '../../../modules/cars/entities/car';
 import { CreateCarDto } from '../../../modules/cars/repositories/dtos/create-car-dto';
 import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../shared/infra/errors/app-error';
 
 @injectable()
 export class PrismaCarsRepository implements CarsRepository {
@@ -38,12 +37,6 @@ export class PrismaCarsRepository implements CarsRepository {
         license_plate,
       },
     });
-
-    if (!car) {
-      throw new AppError({
-        message: 'Car does not exists',
-      });
-    }
 
     return car;
   }
