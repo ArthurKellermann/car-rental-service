@@ -7,6 +7,8 @@ import { PrismaSpecificationsRepository } from '../../database/prisma/repositori
 import { prismaClient } from '../../database/prisma/prisma-client';
 import { UserRepository } from '../../modules/accounts/repositories/user-repository';
 import { PrismaUsersRepository } from '../../database/prisma/repositories/prisma-users-repository';
+import { CarsRepository } from '../../modules/cars/repositories/cars-repository';
+import { PrismaCarsRepository } from '../../database/prisma/repositories/prisma-cars-repository';
 
 container.registerInstance('PrismaClient', prismaClient);
 
@@ -23,4 +25,9 @@ container.registerSingleton<SpecificationsRepository>(
 container.registerSingleton<UserRepository>(
   'PrismaUsersRepository',
   PrismaUsersRepository,
+);
+
+container.registerSingleton<CarsRepository>(
+  'PrismaCarsRepository',
+  PrismaCarsRepository,
 );

@@ -42,17 +42,17 @@ model User {
 }
 
 model Car {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
   description   String
   daily_rate    Float
-  available     Boolean  @default(true)
-  license_plate String
+  available     Boolean   @default(true)
+  license_plate String    @unique
   fine_amount   Float
   brand         String
   category_id   String?
   category      Category? @relation(fields: [category_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
-  created_at    DateTime @default(now())
+  created_at    DateTime  @default(now())
 
   @@map("cars")
 }

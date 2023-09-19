@@ -12,6 +12,7 @@ export class Car {
 
   description: string;
 
+  @IsNotEmpty()
   category_id: string;
 
   daily_rate: number;
