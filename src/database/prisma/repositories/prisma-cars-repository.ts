@@ -4,6 +4,13 @@ import { Car } from '../../../modules/cars/entities/car';
 import { CreateCarDto } from '../../../modules/cars/repositories/dtos/create-car-dto';
 import { inject, injectable } from 'tsyringe';
 
+interface carFilterBody {
+  available: boolean;
+  brand?: string;
+  category_id?: string;
+  name?: string;
+}
+
 @injectable()
 export class PrismaCarsRepository implements CarsRepository {
   constructor(@inject('PrismaClient') private prisma: PrismaClient) {}
@@ -39,5 +46,33 @@ export class PrismaCarsRepository implements CarsRepository {
     });
 
     return car;
+  }
+
+  async findAvailable(
+    brand?: string,
+    category_id?: string,
+    name?: string,
+  ): Promise<Car[]> {
+    const carFilter: carFilterBody = {
+      available: true,
+    };
+
+    if (brand) {
+      carFilter.brand = brand;
+    }
+
+    if (category_id) {
+      carFilter.category_id = category_id;
+    }
+
+    if (name) {
+      carFilter.name = name;
+    }
+
+    const cars = await this.prisma.car.findMany({
+      where: carFilter,
+    });
+
+    return cars;
   }
 }

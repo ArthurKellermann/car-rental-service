@@ -2,9 +2,7 @@ import { hash } from 'bcryptjs';
 import { prismaClient } from '../prisma/prisma-client';
 import { v4 as randomUUID } from 'uuid';
 
-createAdmin().then(() => console.log('User admin created!'));
-
-async function createAdmin() {
+export async function createAdmin() {
   const id = randomUUID();
   const password = await hash('admin', 8);
   try {
