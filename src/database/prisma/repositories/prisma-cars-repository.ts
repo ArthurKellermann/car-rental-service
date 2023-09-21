@@ -75,4 +75,14 @@ export class PrismaCarsRepository implements CarsRepository {
 
     return cars;
   }
+
+  async findById(id: string): Promise<Car> {
+    const car = await this.prisma.car.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return car;
+  }
 }

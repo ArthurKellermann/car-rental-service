@@ -9,16 +9,18 @@ export class PrismaSpecificationsRepository
   implements SpecificationsRepository
 {
   constructor(@inject('PrismaClient') private prisma: PrismaClient) {}
-
-  async create({ name, description }: CreateSpecificationDTO): Promise<void> {
-    await this.prisma.specification.create({
+  async create({
+    name,
+    description,
+  }: CreateSpecificationDTO): Promise<Specification> {
+    const specification = await this.prisma.specification.create({
       data: {
         name,
         description,
       },
     });
 
-    return;
+    return specification;
   }
 
   async findByName(name: string): Promise<Specification> {
@@ -29,5 +31,21 @@ export class PrismaSpecificationsRepository
     });
 
     return specification;
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    const specifications = [];
+
+    for (const id of ids) {
+      const specification = await this.prisma.specification.findMany({
+        where: {
+          id,
+        },
+      });
+
+      specifications.push(specification);
+    }
+
+    return specifications;
   }
 }

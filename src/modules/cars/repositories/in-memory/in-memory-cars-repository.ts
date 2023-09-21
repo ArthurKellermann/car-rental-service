@@ -17,6 +17,7 @@ export class InMemoryCarsRepository implements CarsRepository {
     description,
     fine_amount,
     license_plate,
+    specifications,
   }: CreateCarDto): Promise<Car> {
     const car: Car = new Car();
 
@@ -29,6 +30,7 @@ export class InMemoryCarsRepository implements CarsRepository {
       fine_amount,
       license_plate,
       created_at: new Date(),
+      specifications,
     });
 
     await this.cars.push(car);
@@ -62,5 +64,11 @@ export class InMemoryCarsRepository implements CarsRepository {
     });
 
     return cars;
+  }
+
+  async findById(id: string): Promise<Car> {
+    const car = await this.cars.find((car) => car.id === id);
+
+    return car;
   }
 }

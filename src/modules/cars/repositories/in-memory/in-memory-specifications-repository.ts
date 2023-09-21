@@ -10,7 +10,10 @@ export class InMemorySpecificationsRepository
   constructor() {
     this.specifications = [];
   }
-  async create({ name, description }: CreateSpecificationDTO): Promise<void> {
+  async create({
+    name,
+    description,
+  }: CreateSpecificationDTO): Promise<Specification> {
     const specification = new Specification();
 
     Object.assign(specification, {
@@ -20,6 +23,8 @@ export class InMemorySpecificationsRepository
     });
 
     await this.specifications.push(specification);
+
+    return specification;
   }
 
   async findByName(name: string): Promise<Specification> {
@@ -28,5 +33,13 @@ export class InMemorySpecificationsRepository
     );
 
     return specification;
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    const specificationIds = await this.specifications.filter((specification) =>
+      ids.includes(specification.id),
+    );
+
+    return specificationIds;
   }
 }

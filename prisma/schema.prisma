@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_LOCAL")
 }
 
 model Category {
@@ -19,10 +19,11 @@ model Category {
 }
 
 model Specification {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  description String
-  created_at  DateTime @default(now())
+  id                 String               @id @default(uuid())
+  name               String               @unique
+  description        String
+  created_at         DateTime             @default(now())
+  SpecificationsCars SpecificationsCars[]
 
   @@map("specifications")
 }
@@ -42,17 +43,29 @@ model User {
 }
 
 model Car {
-  id            String    @id @default(uuid())
-  name          String
-  description   String
-  daily_rate    Float
-  available     Boolean   @default(true)
-  license_plate String    @unique
-  fine_amount   Float
-  brand         String
-  category_id   String?
-  category      Category? @relation(fields: [category_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
-  created_at    DateTime  @default(now())
+  id                 String               @id @default(uuid())
+  name               String
+  description        String
+  daily_rate         Float
+  available          Boolean              @default(true)
+  license_plate      String               @unique
+  fine_amount        Float
+  brand              String
+  category_id        String?
+  category           Category?            @relation(fields: [category_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  created_at         DateTime             @default(now())
+  SpecificationsCars SpecificationsCars[]
 
   @@map("cars")
+}
+
+model SpecificationsCars {
+  id               String         @id @default(uuid())
+  car_id           String?
+  car              Car?           @relation(fields: [car_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  specification_id String?
+  specification    Specification? @relation(fields: [specification_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  created_at       DateTime       @default(now())
+
+  @@map("speficiations_cars")
 }

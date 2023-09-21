@@ -1,5 +1,6 @@
 import { v4 as randomUUID } from 'uuid';
 import { IsNotEmpty } from 'class-validator';
+import { Specification } from './specification';
 
 export class Car {
   id?: string;
@@ -22,6 +23,8 @@ export class Car {
   fine_amount: number;
 
   license_plate: string;
+
+  specifications?: Specification[];
 
   created_at: Date;
 

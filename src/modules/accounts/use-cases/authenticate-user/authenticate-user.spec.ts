@@ -35,23 +35,23 @@ describe('Authenticate user', () => {
     expect(result).toHaveProperty('token');
   });
 
-  it('should not be able to authenticate an nonexistent user', () => {
-    expect(async () => {
-      await authenticateUser.execute({
+  it('should not be able to authenticate an nonexistent user', async () => {
+    await expect(
+      authenticateUser.execute({
         email: 'false@test.com',
         password: '1234',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should no be able to authenticate with incorrect password', () => {
     expect(async () => {
       const user: CreateUserDTO = {
-        driver_license: '99999',
         email: 'user@user.com',
         password: '1234',
         name: 'User test',
         username: 'usernametesterror',
+        driver_license: '99999',
       };
 
       await createUserUseCase.execute(user);

@@ -1,3 +1,5 @@
+import { Specification } from '../../entities/specification';
+
 export interface CreateCarDto {
   name: string;
   description: string;
@@ -6,4 +8,5 @@ export interface CreateCarDto {
   fine_amount: number;
   brand: string;
   category_id: string;
+  specifications?: Specification[];
 }
