@@ -3,6 +3,7 @@ import { CarsRepository } from '../../../modules/cars/repositories/cars-reposito
 import { Car } from '../../../modules/cars/entities/car';
 import { CreateCarDto } from '../../../modules/cars/repositories/dtos/create-car-dto';
 import { inject, injectable } from 'tsyringe';
+import { Specification } from '../../../modules/cars/entities/specification';
 
 interface carFilterBody {
   available: boolean;
@@ -23,6 +24,7 @@ export class PrismaCarsRepository implements CarsRepository {
     description,
     fine_amount,
     license_plate,
+    specifications,
   }: CreateCarDto): Promise<Car> {
     const car = await this.prisma.car.create({
       data: {
@@ -36,8 +38,18 @@ export class PrismaCarsRepository implements CarsRepository {
       },
     });
 
+    if (specifications && specifications.length > 0) {
+      await this.prisma.specificationsCars.createMany({
+        data: specifications.map((specId) => ({
+          car_id: car.id,
+          specification_id: specId,
+        })),
+      });
+    }
+
     return car;
   }
+
   async findByLicensePlate(license_plate: string): Promise<Car> {
     const car = await this.prisma.car.findUnique({
       where: {
@@ -84,5 +96,21 @@ export class PrismaCarsRepository implements CarsRepository {
     });
 
     return car;
+  }
+
+  async updateSpecifications(
+    carId: string,
+    specifications: Specification[],
+  ): Promise<Car> {
+    const specIds = specifications.map((spec) => spec.id);
+
+    await this.prisma.specificationsCars.createMany({
+      data: specIds.map((specId) => ({
+        car_id: carId,
+        specification_id: specId,
+      })),
+    });
+
+    return this.findById(carId);
   }
 }

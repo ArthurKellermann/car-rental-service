@@ -1,4 +1,5 @@
 import { Car } from '../entities/car';
+import { Specification } from '../entities/specification';
 import { CreateCarDto } from './dtos/create-car-dto';
 
 export interface CarsRepository {
@@ -21,4 +22,8 @@ export interface CarsRepository {
   ): Promise<Car[]>;
 
   findById(id: string): Promise<Car>;
+  updateSpecifications(
+    carId: string,
+    specifications: Specification[],
+  ): Promise<Car>;
 }

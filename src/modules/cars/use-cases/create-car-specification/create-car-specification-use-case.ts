@@ -21,7 +21,7 @@ export class CreateCarSpecificationUseCase {
     car_id,
     specifications_id,
   }: CreateCarSpecificationRequest): Promise<Car> {
-    const car: Car = await this.carsRepository.findById(car_id);
+    const car = await this.carsRepository.findById(car_id);
 
     if (!car) {
       throw new AppError({
@@ -32,10 +32,8 @@ export class CreateCarSpecificationUseCase {
     const specifications =
       await this.specificationsRepository.findByIds(specifications_id);
 
-    car.specifications = specifications;
+    await this.carsRepository.updateSpecifications(car.id, specifications);
 
-    console.log(car);
-
-    return await this.carsRepository.create(car);
+    return car;
   }
 }

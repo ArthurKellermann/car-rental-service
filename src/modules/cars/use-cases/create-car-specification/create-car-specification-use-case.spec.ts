@@ -48,14 +48,11 @@ describe('Create car specification', () => {
 
     const specifications_id = [specification.id];
 
-    await createCarSpecificationUseCase.execute({
+    const carWithSpecifications = await createCarSpecificationUseCase.execute({
       car_id: car.id,
       specifications_id,
     });
 
-    await createCarSpecificationUseCase.execute({
-      car_id: car.id,
-      specifications_id,
-    });
+    expect(carWithSpecifications.specifications).toContainEqual(specification);
   });
 });
