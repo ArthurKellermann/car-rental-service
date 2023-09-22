@@ -16,4 +16,13 @@ export class CarViewModel {
       specifications: car.specifications,
     };
   }
+
+  static toHTTPList(cars: Car[]): Car[] {
+    const mappedCars = [];
+    for (const car of cars) {
+      mappedCars.push(this.toHTTP(car));
+    }
+
+    return mappedCars;
+  }
 }

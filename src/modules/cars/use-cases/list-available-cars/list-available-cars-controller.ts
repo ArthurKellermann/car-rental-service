@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { ListAvailableCarsUseCase } from './list-available-cars-use-case';
+import { CarViewModel } from '../../../../shared/infra/http/view-models/car-view-model';
 
 export class ListAvailableCarsController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -15,6 +16,6 @@ export class ListAvailableCarsController {
       name: name as string,
     });
 
-    return res.status(200).json(carsList);
+    return res.status(200).json(CarViewModel.toHTTPList(carsList));
   }
 }

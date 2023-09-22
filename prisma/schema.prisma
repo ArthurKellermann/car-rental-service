@@ -55,6 +55,7 @@ model Car {
   category           Category?            @relation(fields: [category_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
   created_at         DateTime             @default(now())
   SpecificationsCars SpecificationsCars[]
+  ImagesCars         ImagesCars[]
 
   @@map("cars")
 }
@@ -67,5 +68,15 @@ model SpecificationsCars {
   specification    Specification? @relation(fields: [specification_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
   created_at       DateTime       @default(now())
 
-  @@map("speficiations_cars")
+  @@map("specifications_cars")
+}
+
+model ImagesCars {
+  id         String   @id @default(uuid())
+  car_id     String?
+  car        Car?     @relation(fields: [car_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  image_name String
+  created_at DateTime @default(now())
+
+  @@map("cars_image")
 }
