@@ -3,7 +3,6 @@ import { CarsRepository } from '../../../modules/cars/repositories/cars-reposito
 import { Car } from '../../../modules/cars/entities/car';
 import { CreateCarDto } from '../../../modules/cars/repositories/dtos/create-car-dto';
 import { inject, injectable } from 'tsyringe';
-import { Specification } from '../../../modules/cars/entities/specification';
 
 interface carFilterBody {
   available: boolean;
@@ -15,7 +14,6 @@ interface carFilterBody {
 @injectable()
 export class PrismaCarsRepository implements CarsRepository {
   constructor(@inject('PrismaClient') private prisma: PrismaClient) {}
-
   async create({
     name,
     brand,
@@ -93,24 +91,11 @@ export class PrismaCarsRepository implements CarsRepository {
       where: {
         id,
       },
+      include: {
+        SpecificationsCars: true,
+      },
     });
 
     return car;
-  }
-
-  async updateSpecifications(
-    carId: string,
-    specifications: Specification[],
-  ): Promise<Car> {
-    const specIds = specifications.map((spec) => spec.id);
-
-    await this.prisma.specificationsCars.createMany({
-      data: specIds.map((specId) => ({
-        car_id: carId,
-        specification_id: specId,
-      })),
-    });
-
-    return this.findById(carId);
   }
 }

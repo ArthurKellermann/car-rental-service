@@ -1,7 +1,6 @@
 import { CarsRepository } from '../cars-repository';
 import { CreateCarDto } from '../dtos/create-car-dto';
 import { Car } from '../../entities/car';
-import { Specification } from '../../entities/specification';
 
 export class InMemoryCarsRepository implements CarsRepository {
   private cars: Car[];
@@ -71,16 +70,5 @@ export class InMemoryCarsRepository implements CarsRepository {
     const car = await this.cars.find((car) => car.id === id);
 
     return car;
-  }
-
-  async updateSpecifications(
-    carId: string,
-    specifications: Specification[],
-  ): Promise<Car> {
-    const carIndex = await this.cars.findIndex((car) => car.id === carId);
-
-    this.cars[carIndex].specifications = specifications;
-
-    return this.cars[carIndex];
   }
 }

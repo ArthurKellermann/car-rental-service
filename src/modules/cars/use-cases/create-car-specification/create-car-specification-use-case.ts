@@ -14,6 +14,7 @@ export class CreateCarSpecificationUseCase {
   constructor(
     @inject('PrismaCarsRepository')
     private carsRepository: CarsRepository,
+    @inject('PrismaSpecificationsRepository')
     private specificationsRepository: SpecificationsRepository,
   ) {}
 
@@ -32,7 +33,7 @@ export class CreateCarSpecificationUseCase {
     const specifications =
       await this.specificationsRepository.findByIds(specifications_id);
 
-    await this.carsRepository.updateSpecifications(car.id, specifications);
+    car.specifications = specifications;
 
     return car;
   }
