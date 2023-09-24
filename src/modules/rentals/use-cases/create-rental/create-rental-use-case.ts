@@ -1,8 +1,13 @@
 import 'reflect-metadata';
-import { inject, injectable } from 'tsyringe';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import { injectable } from 'tsyringe';
 import { RentalsRepository } from '../../repositories/rental-repository';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 import { Rental } from '../../entities/rental';
+import { DateProvider } from '../../../../shared/container/providers/date-provider/date-provider';
+
+dayjs.extend(utc);
 
 interface CreateRentaUseCaseRequest {
   user_id: string;
@@ -12,13 +17,17 @@ interface CreateRentaUseCaseRequest {
 
 @injectable()
 export class CreateRentalUseCase {
-  constructor(private rentalsRepository: RentalsRepository) {}
+  constructor(
+    private rentalsRepository: RentalsRepository,
+    private dateProvider: DateProvider,
+  ) {}
 
   async execute({
     car_id,
     user_id,
     expected_return_date,
   }: CreateRentaUseCaseRequest): Promise<Rental> {
+    const minimumHour = 24;
     const carUnavailable =
       await this.rentalsRepository.findOpenRentalByCar(car_id);
 
@@ -34,6 +43,19 @@ export class CreateRentalUseCase {
     if (rentalOpenToUser) {
       throw new AppError({
         message: 'There is a rental in progress for user',
+      });
+    }
+
+    const dateNow = this.dateProvider.dateNow();
+
+    const compare = this.dateProvider.compareInHours(
+      dateNow,
+      expected_return_date,
+    );
+
+    if (compare < minimumHour) {
+      throw new AppError({
+        message: 'Invalid return time!',
       });
     }
 
