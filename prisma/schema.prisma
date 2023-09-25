@@ -84,17 +84,17 @@ model ImagesCars {
 }
 
 model Rental {
-  id                   String   @id @default(uuid())
+  id                   String    @id @default(uuid())
   car_id               String?
-  car                  Car?     @relation(fields: [car_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  car                  Car?      @relation(fields: [car_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
   user_id              String?
-  user                 User?    @relation(fields: [user_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
-  start_date           DateTime @default(now())
-  end_date             DateTime
+  user                 User?     @relation(fields: [user_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  start_date           DateTime  @default(now())
+  end_date             DateTime?
   expected_return_date DateTime
-  total                Float
-  created_at           DateTime @default(now())
-  updated_at           DateTime @default(now())
+  total                Float?
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @default(now())
 
   @@map("rentals")
 }

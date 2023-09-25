@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { RentalsRepository } from '../../repositories/rental-repository';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 import { Rental } from '../../entities/rental';
@@ -18,7 +18,9 @@ interface CreateRentaUseCaseRequest {
 @injectable()
 export class CreateRentalUseCase {
   constructor(
+    @inject('PrismaRentalsRepository')
     private rentalsRepository: RentalsRepository,
+    @inject('DateProvider')
     private dateProvider: DateProvider,
   ) {}
 

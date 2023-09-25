@@ -1,5 +1,7 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
+
+import './providers/';
 import { CategoriesRepository } from '../../modules/cars/repositories/categories-repository';
 import { PrismaCategoriesRepository } from '../../database/prisma/repositories/prisma-categories-repository';
 import { SpecificationsRepository } from '../../modules/cars/repositories/specifications-repository';
@@ -11,6 +13,8 @@ import { CarsRepository } from '../../modules/cars/repositories/cars-repository'
 import { PrismaCarsRepository } from '../../database/prisma/repositories/prisma-cars-repository';
 import { CarsImagesRepository } from '../../modules/cars/repositories/cars-images-repository';
 import { PrismaCarsImagesRepository } from '../../database/prisma/repositories/prisma-cars-images-repository';
+import { RentalsRepository } from '../../modules/rentals/repositories/rental-repository';
+import { PrismaRentalsRepository } from '../../database/prisma/repositories/prisma-rentals-repository';
 
 container.registerInstance('PrismaClient', prismaClient);
 
@@ -37,4 +41,9 @@ container.registerSingleton<CarsRepository>(
 container.registerSingleton<CarsImagesRepository>(
   'PrismaCarsImagesRepository',
   PrismaCarsImagesRepository,
+);
+
+container.registerSingleton<RentalsRepository>(
+  'PrismaRentalsRepository',
+  PrismaRentalsRepository,
 );
