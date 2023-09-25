@@ -98,4 +98,17 @@ export class PrismaCarsRepository implements CarsRepository {
 
     return car;
   }
+
+  async updateAvailable(id: string, available: boolean): Promise<Car> {
+    const car = await this.prisma.car.update({
+      where: {
+        id,
+      },
+      data: {
+        available,
+      },
+    });
+
+    return car;
+  }
 }

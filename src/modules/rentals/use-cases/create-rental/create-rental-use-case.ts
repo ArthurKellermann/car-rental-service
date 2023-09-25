@@ -6,6 +6,7 @@ import { RentalsRepository } from '../../repositories/rental-repository';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 import { Rental } from '../../entities/rental';
 import { DateProvider } from '../../../../shared/container/providers/date-provider/date-provider';
+import { CarsRepository } from '../../../cars/repositories/cars-repository';
 
 dayjs.extend(utc);
 
@@ -22,6 +23,8 @@ export class CreateRentalUseCase {
     private rentalsRepository: RentalsRepository,
     @inject('DateProvider')
     private dateProvider: DateProvider,
+    @inject('PrismaCarsRepository')
+    private carsRepository: CarsRepository,
   ) {}
 
   async execute({
@@ -66,6 +69,8 @@ export class CreateRentalUseCase {
       car_id,
       expected_return_date,
     });
+
+    await this.carsRepository.updateAvailable(car_id, false);
 
     return rental;
   }
