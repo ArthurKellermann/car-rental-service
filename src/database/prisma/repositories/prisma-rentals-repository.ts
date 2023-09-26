@@ -12,12 +12,18 @@ export class PrismaRentalsRepository implements RentalsRepository {
     car_id,
     expected_return_date,
     user_id,
+    end_date,
+    id,
+    total,
   }: CreateRentalDto): Promise<Rental> {
     const rental = await this.prisma.rental.create({
       data: {
         car_id,
         expected_return_date,
         user_id,
+        id,
+        end_date,
+        total,
       },
     });
 
@@ -27,6 +33,7 @@ export class PrismaRentalsRepository implements RentalsRepository {
     const openByCar = await this.prisma.rental.findFirst({
       where: {
         car_id,
+        end_date: null,
       },
     });
 
@@ -36,9 +43,20 @@ export class PrismaRentalsRepository implements RentalsRepository {
     const openByUser = await this.prisma.rental.findFirst({
       where: {
         user_id,
+        end_date: null,
       },
     });
 
     return openByUser;
+  }
+
+  async findById(id: string): Promise<Rental> {
+    const rental = await this.prisma.rental.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return rental;
   }
 }
