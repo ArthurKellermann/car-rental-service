@@ -59,4 +59,14 @@ export class PrismaRentalsRepository implements RentalsRepository {
 
     return rental;
   }
+
+  async listRentalsByUser(user_id: string): Promise<Rental[]> {
+    const rentals = await this.prisma.rental.findMany({
+      where: {
+        user_id,
+      },
+    });
+
+    return rentals;
+  }
 }
