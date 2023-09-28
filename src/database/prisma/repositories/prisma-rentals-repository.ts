@@ -7,7 +7,6 @@ import { CreateRentalDto } from '../../../modules/rentals/repositories/dtos/crea
 @injectable()
 export class PrismaRentalsRepository implements RentalsRepository {
   constructor(@inject('PrismaClient') private prisma: PrismaClient) {}
-
   async create({
     car_id,
     expected_return_date,
@@ -68,5 +67,33 @@ export class PrismaRentalsRepository implements RentalsRepository {
     });
 
     return rentals;
+  }
+
+  async update({
+    car_id,
+    end_date,
+    expected_return_date,
+    start_date,
+    total,
+    user_id,
+    id,
+  }: Rental): Promise<Rental> {
+    const updatedRental = await this.prisma.rental.update({
+      data: {
+        car_id,
+        end_date,
+        expected_return_date,
+        start_date,
+        total,
+        id,
+        user_id,
+        updated_at: new Date(),
+      },
+      where: {
+        id,
+      },
+    });
+
+    return updatedRental;
   }
 }

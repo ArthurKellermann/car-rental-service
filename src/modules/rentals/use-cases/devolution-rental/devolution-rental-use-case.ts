@@ -20,10 +20,7 @@ export class DevolutionRentalUseCase {
     @inject('DateProvider')
     private dateProvider: DateProvider,
   ) {}
-  async execute({
-    id,
-    user_id,
-  }: DevolutionRentalUseCaseRequest): Promise<Rental> {
+  async execute({ id }: DevolutionRentalUseCaseRequest): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(id);
     const car = await this.carsRepository.findById(rental.car_id);
     const minimum_daily = 1;
@@ -61,7 +58,7 @@ export class DevolutionRentalUseCase {
     rental.end_date = this.dateProvider.dateNow();
     rental.total = total;
 
-    await this.rentalsRepository.create(rental);
+    await this.rentalsRepository.update(rental);
     await this.carsRepository.updateAvailable(car.id, true);
 
     return rental;
