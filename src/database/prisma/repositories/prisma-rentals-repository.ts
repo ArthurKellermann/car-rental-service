@@ -69,7 +69,7 @@ export class PrismaRentalsRepository implements RentalsRepository {
     return rentals;
   }
 
-  async update({
+  async updateRental({
     car_id,
     end_date,
     expected_return_date,

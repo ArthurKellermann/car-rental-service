@@ -1,7 +1,10 @@
 import { v4 as randomUUID } from 'uuid';
+import { Car } from '../../cars/entities/car';
 
 export class Rental {
   id?: string;
+
+  car?: Car;
 
   car_id: string;
 

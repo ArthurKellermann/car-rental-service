@@ -7,5 +7,5 @@ export interface RentalsRepository {
   findOpenRentalByUser(user_id: string): Promise<Rental>;
   findById(id: string): Promise<Rental>;
   listRentalsByUser(user_id: string): Promise<Rental[]>;
-  update(rental: Rental): Promise<Rental>;
+  updateRental(rental: Rental): Promise<Rental>;
 }
