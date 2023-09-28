@@ -60,7 +60,7 @@ export class CreateRentalUseCase {
 
     if (compare < minimumHour) {
       throw new AppError({
-        message: 'Invalid return time!',
+        message: 'Invalid return time',
       });
     }
 

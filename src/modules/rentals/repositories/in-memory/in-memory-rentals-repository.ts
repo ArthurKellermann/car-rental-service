@@ -37,4 +37,20 @@ export class InMemoryRentalsRepository implements RentalsRepository {
   async findById(id: string): Promise<Rental> {
     return this.rentals.find((rental) => rental.id === id);
   }
+
+  async listRentalsByUser(user_id: string): Promise<Rental[]> {
+    return this.rentals.filter((rental) => rental.user_id === user_id);
+  }
+
+  async updateRental(rental: Rental): Promise<Rental> {
+    const index = this.rentals.findIndex((rent) => rent.id === rental.id);
+
+    if (index === -1) {
+      throw new Error('Rental not found');
+    }
+
+    this.rentals[index] = { ...this.rentals[index], ...rental };
+
+    return this.rentals[index];
+  }
 }

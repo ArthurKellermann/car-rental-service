@@ -146,4 +146,4 @@ tmp/
 tmp
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-create-category-controller.spec.ts
+create-category-controllertest.ts
