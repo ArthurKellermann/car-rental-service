@@ -3,6 +3,9 @@ import { UserRepository } from '../../repositories/user-repository';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { AppError } from '../../../../shared/infra/errors/app-error';
+import { UserTokensRepository } from '../../repositories/users-tokens-repository';
+import auth from '../../../../config/auth';
+import { DateProvider } from '../../../../shared/container/providers/date-provider/date-provider';
 
 interface AuthenticateUserRequest {
   email: string;
@@ -15,12 +18,16 @@ interface AuthenticateUserResponse {
     email: string;
   };
   token: string;
+  refresh_token: string;
 }
 
 @injectable()
 export class AuthenticateUserUseCase {
   constructor(
     @inject('PrismaUsersRepository') private usersRepository: UserRepository,
+    @inject('PrismaUserTokensRepository')
+    private userTokensRepository: UserTokensRepository,
+    @inject('DateProvider') private dateProvider: DateProvider,
   ) {}
   async execute({
     email,
@@ -31,7 +38,7 @@ export class AuthenticateUserUseCase {
     if (!user) {
       throw new AppError({
         statusCode: 400,
-        message: 'Email or password incorret',
+        message: 'Email or password incorrect',
       });
     }
 
@@ -40,13 +47,28 @@ export class AuthenticateUserUseCase {
     if (!passwordMatch) {
       throw new AppError({
         statusCode: 400,
-        message: 'Email or password incorret',
+        message: 'Email or password incorrect',
       });
     }
 
-    const token = sign({}, '9b913e7f1f9e37ddaae984018e3dfc54', {
+    const token = sign({}, auth.secret_token, {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn: auth.expires_in_token,
+    });
+
+    const refresh_token = sign({ email }, auth.secret_refresh_token, {
+      subject: user.id,
+      expiresIn: auth.expires_in_refresh_token,
+    });
+
+    const refresh_token_expires_date = this.dateProvider.addDays(
+      auth.expires_refresh_token_days,
+    );
+
+    await this.userTokensRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
     });
 
     const tokenReturn: AuthenticateUserResponse = {
@@ -55,7 +77,9 @@ export class AuthenticateUserUseCase {
         name: user.name,
         email: user.email,
       },
+      refresh_token,
     };
+
     return tokenReturn;
   }
 }

@@ -15,6 +15,8 @@ import { CarsImagesRepository } from '../../modules/cars/repositories/cars-image
 import { PrismaCarsImagesRepository } from '../../modules/cars/repositories/prisma/prisma-cars-images-repository';
 import { RentalsRepository } from '../../modules/rentals/repositories/rental-repository';
 import { PrismaRentalsRepository } from '../../modules/rentals/repositories/prisma/prisma-rentals-repository';
+import { UserTokensRepository } from '../../modules/accounts/repositories/users-tokens-repository';
+import { PrismaUserTokensRepository } from '../../modules/accounts/repositories/prisma/prisma-user-tokens-repository';
 
 container.registerInstance('PrismaClient', prismaClient);
 
@@ -46,4 +48,9 @@ container.registerSingleton<CarsImagesRepository>(
 container.registerSingleton<RentalsRepository>(
   'PrismaRentalsRepository',
   PrismaRentalsRepository,
+);
+
+container.registerSingleton<UserTokensRepository>(
+  'PrismaUserTokensRepository',
+  PrismaUserTokensRepository,
 );
