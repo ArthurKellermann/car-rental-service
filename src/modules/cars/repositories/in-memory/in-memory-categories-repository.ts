@@ -1,6 +1,6 @@
 import { Category } from '../../entities/category';
 import { CategoriesRepository } from '../categories-repository';
-import { CreateCategoryDTO } from '../dtos/create-category-dto';
+import { CreateCategoryDTO } from '../../dtos/create-category-dto';
 
 export class InMemoryCategoriesRepository implements CategoriesRepository {
   private categories: Category[];

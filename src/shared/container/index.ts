@@ -3,18 +3,18 @@ import { container } from 'tsyringe';
 
 import './providers/';
 import { CategoriesRepository } from '../../modules/cars/repositories/categories-repository';
-import { PrismaCategoriesRepository } from '../../database/prisma/repositories/prisma-categories-repository';
+import { PrismaCategoriesRepository } from '../../modules/cars/repositories/prisma/prisma-categories-repository';
 import { SpecificationsRepository } from '../../modules/cars/repositories/specifications-repository';
-import { PrismaSpecificationsRepository } from '../../database/prisma/repositories/prisma-specifications-repository';
-import { prismaClient } from '../../database/prisma/prisma-client';
+import { PrismaSpecificationsRepository } from '../../modules/cars/repositories/prisma/prisma-specifications-repository';
+import { prismaClient } from '../infra/database/prisma/prisma-client';
 import { UserRepository } from '../../modules/accounts/repositories/user-repository';
-import { PrismaUsersRepository } from '../../database/prisma/repositories/prisma-users-repository';
+import { PrismaUsersRepository } from '../../modules/accounts/repositories/prisma/prisma-users-repository';
 import { CarsRepository } from '../../modules/cars/repositories/cars-repository';
-import { PrismaCarsRepository } from '../../database/prisma/repositories/prisma-cars-repository';
+import { PrismaCarsRepository } from '../../modules/cars/repositories/prisma/prisma-cars-repository';
 import { CarsImagesRepository } from '../../modules/cars/repositories/cars-images-repository';
-import { PrismaCarsImagesRepository } from '../../database/prisma/repositories/prisma-cars-images-repository';
+import { PrismaCarsImagesRepository } from '../../modules/cars/repositories/prisma/prisma-cars-images-repository';
 import { RentalsRepository } from '../../modules/rentals/repositories/rental-repository';
-import { PrismaRentalsRepository } from '../../database/prisma/repositories/prisma-rentals-repository';
+import { PrismaRentalsRepository } from '../../modules/rentals/repositories/prisma/prisma-rentals-repository';
 
 container.registerInstance('PrismaClient', prismaClient);
 

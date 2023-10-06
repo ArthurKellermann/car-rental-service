@@ -1,5 +1,5 @@
 import { Specification } from '../entities/specification';
-import { CreateSpecificationDTO } from './dtos/create-specification-dto';
+import { CreateSpecificationDTO } from '../dtos/create-specification-dto';
 
 export interface SpecificationsRepository {
   create({ name, description }: CreateSpecificationDTO): Promise<Specification>;

@@ -1,5 +1,5 @@
 import { User } from '../../entities/user';
-import { CreateUserDTO } from '../dtos/create-user-dto';
+import { CreateUserDTO } from '../../dtos/create-user-dto';
 import { UserRepository } from '../user-repository';
 
 export class InMemoryUsersRepository implements UserRepository {

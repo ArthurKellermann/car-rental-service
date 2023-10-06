@@ -1,5 +1,5 @@
 import { Rental } from '../entities/rental';
-import { CreateRentalDto } from './dtos/create-rental-dto';
+import { CreateRentalDto } from '../dtos/create-rental-dto';
 
 export interface RentalsRepository {
   create(data: CreateRentalDto): Promise<Rental>;

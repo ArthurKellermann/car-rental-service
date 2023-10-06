@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { prismaUsersRepository } from '../../../../database';
+import { prismaUsersRepository } from '../../database';
 import { AppError } from '../../errors/app-error';
 
 export async function ensureAdmin(

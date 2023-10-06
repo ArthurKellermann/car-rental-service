@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'tsyringe';
-import { UserRepository } from '../../../modules/accounts/repositories/user-repository';
-import { CreateUserDTO } from '../../../modules/accounts/repositories/dtos/create-user-dto';
-import { User } from '../../../modules/accounts/entities/user';
+import { UserRepository } from '../user-repository';
+import { CreateUserDTO } from '../../dtos/create-user-dto';
+import { User } from '../../entities/user';
 
 @injectable()
 export class PrismaUsersRepository implements UserRepository {

@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 
-import '../../../database/prisma/repositories/prisma-categories-repository';
+import '../../../modules/cars/repositories/prisma/prisma-categories-repository';
 import '../../container';
 
 import { AppError } from '../errors/app-error';

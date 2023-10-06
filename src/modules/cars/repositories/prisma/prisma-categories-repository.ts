@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { Category } from '../../../modules/cars/entities/category';
-import { CategoriesRepository } from '../../../modules/cars/repositories/categories-repository';
-import { CreateCategoryDTO } from '../../../modules/cars/repositories/dtos/create-category-dto';
+import { Category } from '../../entities/category';
+import { CategoriesRepository } from '../categories-repository';
+import { CreateCategoryDTO } from '../../dtos/create-category-dto';
 import { injectable, inject } from 'tsyringe';
 
 @injectable()

@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-import { CreateUserDTO } from '../../repositories/dtos/create-user-dto';
+import { CreateUserDTO } from '../../dtos/create-user-dto';
 import { InMemoryUsersRepository } from '../../repositories/in-memory/in-memory-users-repository';
 import { CreateUserUseCase } from '../create-user/create-user-use-case';
-import { AuthenticateUserUseCase } from './authenticate-user-user-case';
+import { AuthenticateUserUseCase } from './authenticate-user-use-case';
 import { AppError } from '../../../../shared/infra/errors/app-error';
 
 let authenticateUser: AuthenticateUserUseCase;

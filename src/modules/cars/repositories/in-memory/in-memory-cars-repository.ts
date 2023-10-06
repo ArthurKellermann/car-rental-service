@@ -1,5 +1,5 @@
 import { CarsRepository } from '../cars-repository';
-import { CreateCarDto } from '../dtos/create-car-dto';
+import { CreateCarDto } from '../../dtos/create-car-dto';
 import { Car } from '../../entities/car';
 
 export class InMemoryCarsRepository implements CarsRepository {

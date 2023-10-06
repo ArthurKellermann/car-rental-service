@@ -1,5 +1,5 @@
 import { Rental } from '../../entities/rental';
-import { CreateRentalDto } from '../dtos/create-rental-dto';
+import { CreateRentalDto } from '../../dtos/create-rental-dto';
 import { RentalsRepository } from '../rental-repository';
 
 export class InMemoryRentalsRepository implements RentalsRepository {

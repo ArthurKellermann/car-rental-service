@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-import { CarImage } from '../../../modules/cars/entities/car-image';
-import { CarsImagesRepository } from '../../../modules/cars/repositories/cars-images-repository';
+import { CarImage } from '../../entities/car-image';
+import { CarsImagesRepository } from '../cars-images-repository';
 import { PrismaClient } from '@prisma/client';
 
 @injectable()

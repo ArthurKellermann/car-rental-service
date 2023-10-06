@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { Specification } from '../../../modules/cars/entities/specification';
-import { CreateSpecificationDTO } from '../../../modules/cars/repositories/dtos/create-specification-dto';
-import { SpecificationsRepository } from '../../../modules/cars/repositories/specifications-repository';
+import { Specification } from '../../entities/specification';
+import { CreateSpecificationDTO } from '../../dtos/create-specification-dto';
+import { SpecificationsRepository } from '../specifications-repository';
 import { injectable, inject } from 'tsyringe';
 
 @injectable()

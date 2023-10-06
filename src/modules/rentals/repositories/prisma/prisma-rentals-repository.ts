@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { RentalsRepository } from '../../../modules/rentals/repositories/rental-repository';
+import { RentalsRepository } from '../rental-repository';
 import { inject, injectable } from 'tsyringe';
-import { Rental } from '../../../modules/rentals/entities/rental';
-import { CreateRentalDto } from '../../../modules/rentals/repositories/dtos/create-rental-dto';
+import { Rental } from '../../entities/rental';
+import { CreateRentalDto } from '../../dtos/create-rental-dto';
 
 @injectable()
 export class PrismaRentalsRepository implements RentalsRepository {

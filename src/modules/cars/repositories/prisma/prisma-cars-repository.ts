@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { CarsRepository } from '../../../modules/cars/repositories/cars-repository';
-import { Car } from '../../../modules/cars/entities/car';
-import { CreateCarDto } from '../../../modules/cars/repositories/dtos/create-car-dto';
+import { CarsRepository } from '../cars-repository';
+import { Car } from '../../entities/car';
+import { CreateCarDto } from '../../dtos/create-car-dto';
 import { inject, injectable } from 'tsyringe';
 
 interface carFilterBody {

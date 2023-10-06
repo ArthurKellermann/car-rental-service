@@ -1,5 +1,5 @@
 import { Car } from '../entities/car';
-import { CreateCarDto } from './dtos/create-car-dto';
+import { CreateCarDto } from '../dtos/create-car-dto';
 
 export interface CarsRepository {
   create({
