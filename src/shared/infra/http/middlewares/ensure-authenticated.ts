@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { prismaUsersRepository } from '../../database';
+import { prismaUserTokensRepository } from '../../database';
 import { AppError } from '../../errors/app-error';
+import auth from '../../../../config/auth';
 
 interface Payload {
   sub: string;
@@ -25,10 +26,13 @@ export async function ensureAuthenticated(
   try {
     const { sub: user_id } = verify(
       token,
-      '9b913e7f1f9e37ddaae984018e3dfc54',
+      auth.secret_refresh_token,
     ) as Payload;
 
-    const user = await prismaUsersRepository.findById(user_id);
+    const user = await prismaUserTokensRepository.findByUserIdAndRefreshToken(
+      user_id,
+      token,
+    );
 
     if (!user) {
       throw new AppError({
