@@ -22,4 +22,26 @@ export class PrismaUserTokensRepository implements UserTokensRepository {
 
     return userToken;
   }
+
+  async findByUserIdAndRefreshToken(
+    user_id: string,
+    refresh_token: string,
+  ): Promise<UserTokens> {
+    const userTokens = await this.prisma.userToken.findFirst({
+      where: {
+        user_id,
+        refresh_token,
+      },
+    });
+
+    return userTokens;
+  }
+
+  async deleteById(id: string): Promise<void> {
+    await this.prisma.userToken.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
