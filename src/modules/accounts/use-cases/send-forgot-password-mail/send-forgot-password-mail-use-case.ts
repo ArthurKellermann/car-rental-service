@@ -14,7 +14,7 @@ export class SendForgotPasswordMailUseCase {
     @inject('PrismaUserTokensRepository')
     private usersTokensRepository: UserTokensRepository,
     @inject('DateProvider') private dateProvider: DateProvider,
-    @inject('EtherealMailProvider') private maiLProvider: MailProvider,
+    @inject('EtherealMailProvider') private mailProvider: MailProvider,
   ) {}
 
   async execute(email: string): Promise<void> {
@@ -50,7 +50,7 @@ export class SendForgotPasswordMailUseCase {
       link: `${process.env.FORGOT_MAIL_URL}${token}`,
     };
 
-    await this.maiLProvider.sendMail(
+    await this.mailProvider.sendMail(
       email,
       'Password Recuperation',
       variables,
