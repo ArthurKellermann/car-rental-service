@@ -8,7 +8,6 @@ export class InMemoryUsersRepository implements UserRepository {
   constructor() {
     this.users = [];
   }
-
   async create({
     driver_license,
     email,
@@ -47,5 +46,13 @@ export class InMemoryUsersRepository implements UserRepository {
     const user = this.users.find((user) => user.username === username);
 
     return user;
+  }
+
+  async updateUserPassword(id: string, password: string): Promise<void> {
+    const user = this.users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.password = password;
   }
 }
