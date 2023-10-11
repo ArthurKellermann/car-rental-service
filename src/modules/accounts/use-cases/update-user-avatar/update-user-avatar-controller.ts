@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { UdpateUserAvatarUseCase } from './update-user-avatar-use-case';
+import { UpdateUserAvatarUseCase } from './update-user-avatar-use-case';
 
-export class UdpateUserAvatarController {
+export class UpdateUserAvatarController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.user;
     const avatar_file = req.file.filename;
 
-    const udpateUserAvatarUseCase = container.resolve(UdpateUserAvatarUseCase);
+    const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase);
 
-    await udpateUserAvatarUseCase.execute({
+    await updateUserAvatarUseCase.execute({
       user_id: id,
       avatar_file,
     });

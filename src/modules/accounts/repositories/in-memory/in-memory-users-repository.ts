@@ -55,4 +55,14 @@ export class InMemoryUsersRepository implements UserRepository {
     }
     user.password = password;
   }
+
+  async updateUserAvatar({ avatar, id }: User): Promise<User> {
+    const user = this.users.find((user) => user.avatar === id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.avatar = avatar;
+
+    return user;
+  }
 }

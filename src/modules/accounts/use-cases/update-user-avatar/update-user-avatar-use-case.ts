@@ -1,31 +1,34 @@
 import { injectable, inject } from 'tsyringe';
-import { deleteFile } from '../../../../utils/file';
 import { UserRepository } from '../../repositories/user-repository';
+import { StorageProvider } from '../../../../shared/container/providers/storage-provider/storage-provider';
 
-interface UdpateUserAvatarUseCaseRequest {
+interface UpdateUserAvatarUseCaseRequest {
   user_id: string;
   avatar_file: string;
 }
 
 @injectable()
-export class UdpateUserAvatarUseCase {
+export class UpdateUserAvatarUseCase {
   constructor(
     @inject('PrismaUsersRepository') private userRepository: UserRepository,
+    @inject('StorageProvider') private storageProvider: StorageProvider,
   ) {}
 
   async execute({
     user_id,
     avatar_file,
-  }: UdpateUserAvatarUseCaseRequest): Promise<void> {
+  }: UpdateUserAvatarUseCaseRequest): Promise<void> {
     const user = await this.userRepository.findById(user_id);
 
     if (user.avatar) {
-      await deleteFile(`./tmp/avatar/${user.avatar}`);
+      await this.storageProvider.delete(user.avatar, 'avatar');
     }
+
+    await this.storageProvider.save(avatar_file, 'avatar');
 
     user.avatar = avatar_file;
 
-    await this.userRepository.create(user);
+    await this.userRepository.updateUserAvatar(user);
 
     return;
   }

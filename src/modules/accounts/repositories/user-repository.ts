@@ -7,4 +7,5 @@ export interface UserRepository {
   findById(id: string): Promise<User>;
   findByUsername(username: string): Promise<User>;
   updateUserPassword(id: string, password: string);
+  updateUserAvatar(body: User): Promise<User>;
 }

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { prismaUserTokensRepository } from '../../database';
 import { AppError } from '../../errors/app-error';
 import auth from '../../../../config/auth';
 
@@ -24,22 +23,7 @@ export async function ensureAuthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(
-      token,
-      auth.secret_refresh_token,
-    ) as Payload;
-
-    const user = await prismaUserTokensRepository.findByUserIdAndRefreshToken(
-      user_id,
-      token,
-    );
-
-    if (!user) {
-      throw new AppError({
-        statusCode: 401,
-        message: 'User does not exists',
-      });
-    }
+    const { sub: user_id } = verify(token, auth.secret_token) as Payload;
 
     req.user = {
       id: user_id,
