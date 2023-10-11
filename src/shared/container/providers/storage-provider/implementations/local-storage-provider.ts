@@ -12,7 +12,7 @@ export class LocalStorageProvider implements StorageProvider {
 
     return file;
   }
-  async delete(file: string, folder: string): Promise<string> {
+  async delete(file: string, folder: string): Promise<void> {
     const filename = resolve(`${upload.tmpFolder}/${folder}`, file);
 
     try {
