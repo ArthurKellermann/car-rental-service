@@ -31,7 +31,7 @@ This project is a Car Rental Service, built with a focus on modern development t
 ## Installation
 
 1. Clone the repository.
-2. Set up the environment variables (see "Environment Variables" section below).
+2. Set up the environment variables.
 3. Run your Docker containers.
 4. Install the dependencies and start the server.
 
